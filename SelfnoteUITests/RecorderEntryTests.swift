@@ -33,7 +33,7 @@ final class RecorderEntryTests: XCTestCase {
         XCTAssertTrue(record.waitForExistence(timeout: 15))
         record.tap()
         let springboard = XCUIApplication(bundleIdentifier: "com.apple.springboard")
-        let deny = springboard.alerts.buttons.matching(NSPredicate(format: "label IN %@", ["Don’t Allow", "Don't Allow"])).first
+        let deny = springboard.alerts.buttons.matching(NSPredicate(format: "label IN %@", ["Don’t Allow", "Don't Allow"])).firstMatch
         XCTAssertTrue(deny.waitForExistence(timeout: 10))
         deny.tap()
         let alert = app.alerts["Recording needs attention"]

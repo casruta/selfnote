@@ -75,7 +75,8 @@ enum CaptureFiles {
             // A refused open can mean file protection. Check the CAF signature only if the bytes are readable.
             let source = try FileHandle(forReadingFrom: url)
             defer { try? source.close() }
-            guard let header = try source.read(upToCount: 8), header.count == 8,
+            // A CAF header alone cannot contain audio. Quarantine it rather than retrying forever.
+            guard let header = try source.read(upToCount: 9), header.count == 9,
                   header.starts(with: Data("caff".utf8)) else { throw CaptureError.noAudio }
             throw error
         }

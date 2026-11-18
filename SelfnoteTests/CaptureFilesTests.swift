@@ -51,6 +51,25 @@ final class CaptureFilesTests: XCTestCase {
                        Data([1, 2, 3]))
     }
 
+    func testHeaderOnlyInterruptedCAFIsRetainedWithoutRetryingOnEveryReopen() throws {
+        let id = UUID()
+        let partial = CaptureFiles.partialURL(for: id, in: directory)
+        // Valid CAF file header, but no audio description or audio data chunks.
+        let header = Data([0x63, 0x61, 0x66, 0x66, 0, 1, 0, 0])
+        try header.write(to: partial)
+
+        let first = try CaptureFiles.recover(in: directory, excluding: nil)
+        let reopened = try CaptureFiles.recover(in: directory, excluding: nil)
+
+        XCTAssertTrue(first.saved.isEmpty)
+        XCTAssertEqual(first.unreadable, 1)
+        XCTAssertTrue(reopened.saved.isEmpty)
+        XCTAssertEqual(reopened.unreadable, 0)
+        XCTAssertFalse(FileManager.default.fileExists(atPath: partial.path))
+        XCTAssertFalse(FileManager.default.fileExists(atPath: directory.appendingPathComponent(id.uuidString + ".caf").path))
+        XCTAssertEqual(try Data(contentsOf: directory.appendingPathComponent(id.uuidString + ".unrecovered.caf")), header)
+    }
+
     func testRetryNeverReplacesARecordingAlreadyPublishedUnderTheSameID() throws {
         let id = UUID()
         let partial = CaptureFiles.partialURL(for: id, in: directory)

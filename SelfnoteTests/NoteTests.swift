@@ -1,3 +1,4 @@
+import AVFoundation
 import SwiftData
 import XCTest
 @testable import Selfnote
@@ -109,6 +110,65 @@ final class NoteTests: XCTestCase {
         XCTAssertNil(store.workingID)
         XCTAssertFalse(FileManager.default.fileExists(atPath: audio.path))
         XCTAssertEqual(try container.mainContext.fetchCount(FetchDescriptor<VoiceNote>()), 0)
+    }
+
+    func testRecoveredAudioAndManualEditsSurviveReopeningTheNotebook() throws {
+        let folder = FileManager.default.temporaryDirectory.appendingPathComponent(UUID().uuidString)
+        try FileManager.default.createDirectory(at: folder, withIntermediateDirectories: true)
+        defer { try? FileManager.default.removeItem(at: folder) }
+        let database = folder.appendingPathComponent("Notebook.store")
+        let id = UUID()
+        let partial = CaptureFiles.partialURL(for: id, in: folder)
+        let format = try XCTUnwrap(AVAudioFormat(standardFormatWithSampleRate: 16_000, channels: 1))
+        let buffer = try XCTUnwrap(AVAudioPCMBuffer(pcmFormat: format, frameCapacity: 4))
+        buffer.frameLength = 4
+        let samples = try XCTUnwrap(buffer.floatChannelData?[0])
+        for index in 0..<4 { samples[index] = Float(index + 1) / 8 }
+        do {
+            let file = try AVAudioFile(forWriting: partial, settings: format.settings)
+            try file.write(from: buffer)
+        }
+        let originalAudio = try Data(contentsOf: partial)
+        XCTAssertEqual(try CaptureFiles.recover(in: folder, excluding: nil).saved.count, 1)
+
+        do {
+            let container = try diskContainer(at: database)
+            let store = NoteStore(container: container, directory: { folder }) { _, _, _ in "Unused" }
+            store.synchronize()
+            let note = try XCTUnwrap(container.mainContext.fetch(FetchDescriptor<VoiceNote>()).first)
+            note.acceptTranscript("Original heading. Original words.")
+            note.title = "My heading"
+            note.body = "- [x] Keep this edit\n"
+            note.editedTitle = true
+            note.editedBody = true
+            store.saveEdits()
+            XCTAssertNil(store.problem)
+        }
+
+        do {
+            let container = try diskContainer(at: database)
+            let store = NoteStore(container: container, directory: { folder }) { _, _, _ in "Unused" }
+            store.synchronize()
+            store.synchronize()
+            let notes = try container.mainContext.fetch(FetchDescriptor<VoiceNote>())
+            XCTAssertEqual(notes.map(\.recordingID), [id])
+            let note = try XCTUnwrap(notes.first)
+            XCTAssertEqual(note.state, .ready)
+            XCTAssertEqual(note.title, "My heading")
+            XCTAssertEqual(note.body, "- [x] Keep this edit\n")
+            XCTAssertEqual(note.originalTranscript, "Original heading. Original words.")
+            XCTAssertTrue(note.editedTitle)
+            XCTAssertTrue(note.editedBody)
+            let audio = try store.audioURL(for: note)
+            XCTAssertEqual(try Data(contentsOf: audio), originalAudio)
+            XCTAssertEqual(try AVAudioFile(forReading: audio).length, 4)
+            XCTAssertTrue(try CaptureFiles.recover(in: folder, excluding: nil).saved.isEmpty)
+        }
+    }
+
+    private func diskContainer(at url: URL) throws -> ModelContainer {
+        let configuration = ModelConfiguration(url: url, cloudKitDatabase: .none)
+        return try ModelContainer(for: VoiceNote.self, configurations: configuration)
     }
 
     private func makeStorage() throws -> (URL, ModelContainer) {

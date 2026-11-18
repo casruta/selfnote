@@ -18,6 +18,28 @@ final class NoteTests: XCTestCase {
         XCTAssertEqual(faithful.body, "Don’t send Maya the $50.25 estimate. To do this properly, I might need another week.")
     }
 
+    func testSummaryUsesVerbatimLeadWithoutDroppingShortNegations() {
+        let input = "Do not send it. I might need another week. To do, check the estimate."
+        XCTAssertEqual(NoteFormatter.summary(from: input, locale: english),
+                       "Do not send it. I might need another week.")
+        XCTAssertEqual(NoteFormatter.summary(from: "To do, call Maya.", locale: english), "call Maya.")
+        XCTAssertEqual(NoteFormatter.summary(from: "    ", locale: english), "")
+        XCTAssertEqual(NoteFormatter.summary(from: "Nie wysyłaj maila.", locale: Locale(identifier: "pl-PL")),
+                       "Nie wysyłaj maila.")
+    }
+
+    func testExplicitSummaryOverrideIsNotReplacedByTranscription() {
+        let note = VoiceNote(recordingID: UUID(), createdAt: .now, locale: english)
+        note.acceptTranscript("First words.")
+        XCTAssertEqual(note.summary, "First words.")
+        note.summaryOverride = ""
+        note.acceptTranscript("Second words.")
+        XCTAssertEqual(note.summary, "")
+        XCTAssertEqual(note.originalTranscript, "Second words.")
+        note.summaryOverride = nil
+        XCTAssertEqual(note.summary, "Second words.")
+    }
+
     func testCheckboxEditsOnlyTheChosenLineAndPreservesWhitespace() {
         let body = "- [ ] Same task\n\n- [ ] Same task\n"
         let checked = NoteFormatter.togglingTask(at: 2, in: body)
@@ -138,6 +160,7 @@ final class NoteTests: XCTestCase {
             let note = try XCTUnwrap(container.mainContext.fetch(FetchDescriptor<VoiceNote>()).first)
             note.acceptTranscript("Original heading. Original words.")
             note.title = "My heading"
+            note.summaryOverride = "My summary"
             note.body = "- [x] Keep this edit\n"
             note.editedTitle = true
             note.editedBody = true
@@ -155,6 +178,7 @@ final class NoteTests: XCTestCase {
             let note = try XCTUnwrap(notes.first)
             XCTAssertEqual(note.state, .ready)
             XCTAssertEqual(note.title, "My heading")
+            XCTAssertEqual(note.summary, "My summary")
             XCTAssertEqual(note.body, "- [x] Keep this edit\n")
             XCTAssertEqual(note.originalTranscript, "Original heading. Original words.")
             XCTAssertTrue(note.editedTitle)

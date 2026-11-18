@@ -12,7 +12,7 @@ enum NoteFormatter {
         let startsParagraph: Bool
     }
 
-    static func draft(from transcript: String, locale: Locale) -> Draft {
+    private static func sentences(in transcript: String, locale: Locale) -> [Sentence] {
         let tokenizer = NLTokenizer(unit: .sentence)
         let language = locale.language.languageCode?.identifier
         if let language { tokenizer.setLanguage(NLLanguage(rawValue: language)) }
@@ -31,6 +31,12 @@ enum NoteFormatter {
                 return true
             }
         }
+        return sentences
+    }
+
+    static func draft(from transcript: String, locale: Locale) -> Draft {
+        let sentences = sentences(in: transcript, locale: locale)
+        let language = locale.language.languageCode?.identifier
         guard let first = sentences.first else { return Draft(title: "", body: transcript) }
 
         let firstCue = language == "en" ? cue(in: first.text) : nil
@@ -63,6 +69,16 @@ enum NoteFormatter {
             breakParagraph = false
         }
         return Draft(title: title, body: body)
+    }
+
+    static func summary(from transcript: String, locale: Locale) -> String {
+        let sentences = sentences(in: transcript, locale: locale)
+        let english = locale.language.languageCode?.identifier == "en"
+        let content = sentences.compactMap { sentence -> String? in
+            let text = (english ? cue(in: sentence.text)?.content : nil) ?? sentence.text
+            return text.isEmpty ? nil : text
+        }
+        return content.prefix(2).joined(separator: " ")
     }
 
     private static func cue(in sentence: String) -> (prefix: String, content: String)? {

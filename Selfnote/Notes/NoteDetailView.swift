@@ -39,6 +39,7 @@ struct NoteDetailView: View {
                 .disabled(capture.activeID != nil || capture.isBusy)
 
                 transcriptionStatus
+                summarySection
                 if isEditing {
                     TextEditor(text: Binding(get: { note.body }, set: updateBody))
                         .font(.body).frame(minHeight: 220)
@@ -56,6 +57,15 @@ struct NoteDetailView: View {
                     DisclosureGroup("Original transcript") {
                         Text(note.originalTranscript).frame(maxWidth: .infinity, alignment: .leading)
                             .padding(.top, 8).textSelection(.enabled)
+                    }
+                    if note.filesSnapshotSaved == true {
+                        Label("Saved a copy to Files", systemImage: "checkmark.circle")
+                            .font(.footnote).foregroundStyle(.secondary)
+                    } else {
+                        Button(note.filesSnapshotSaved == nil ? "Save a copy to Files" : "Retry Files copy") {
+                            store.retryFilesSnapshot(note)
+                        }
+                            .font(.footnote)
                     }
                 }
             }
@@ -106,6 +116,24 @@ struct NoteDetailView: View {
             playback.stop()
         }
         .onDisappear { playback.stop() }
+    }
+
+    private var summarySection: some View {
+        let summary = note.summary
+        return VStack(alignment: .leading, spacing: 6) {
+            Text("Summary").font(.headline).accessibilityAddTraits(.isHeader)
+            if isEditing {
+                TextField("Summary", text: Binding(
+                    get: { note.summaryOverride ?? summary },
+                    set: { note.summaryOverride = $0; store.saveEdits() }
+                ), axis: .vertical)
+                .accessibilityLabel("Note summary")
+            } else {
+                Text(summary.isEmpty ? "No summary yet" : summary)
+                    .font(.body).foregroundStyle(summary.isEmpty ? Color.secondary : Color.primary)
+                    .textSelection(.enabled)
+            }
+        }
     }
 
     @ViewBuilder private var transcriptionStatus: some View {

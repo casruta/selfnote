@@ -14,6 +14,8 @@ final class VoiceNote {
     var title = ""
     var body = ""
     var originalTranscript = ""
+    var summaryOverride: String?
+    var filesSnapshotSaved: Bool?
     var editedTitle = false
     var editedBody = false
     var stateValue: String
@@ -33,6 +35,10 @@ final class VoiceNote {
     }
 
     var displayTitle: String { title.isEmpty ? "Voice note" : title }
+
+    var summary: String {
+        summaryOverride ?? NoteFormatter.summary(from: originalTranscript, locale: Locale(identifier: localeIdentifier))
+    }
 
     func acceptTranscript(_ text: String) {
         let draft = NoteFormatter.draft(from: text, locale: Locale(identifier: localeIdentifier))

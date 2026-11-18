@@ -7,11 +7,17 @@ import UIKit
 final class CaptureController: NSObject, ObservableObject, AVAudioRecorderDelegate {
     static let shared = CaptureController()
 
+    enum Phase: String {
+        case idle, preparing, recording, saving
+    }
+
+    @Published private(set) var phase: Phase = .idle
     @Published private(set) var activeID: UUID?
     @Published private(set) var startedAt: Date?
     @Published private(set) var isBusy = false
     @Published private(set) var lastStatus: String?
 
+    private var meterLease: UUID?
     private var pendingStart: UUID?
     private var recorder: AVAudioRecorder?
     private var activity: Activity<RecordingAttributes>?
@@ -32,10 +38,12 @@ final class CaptureController: NSObject, ObservableObject, AVAudioRecorderDelega
         let id = UUID()
         pendingStart = id
         isBusy = true
+        phase = .preparing
         lastStatus = nil
         defer {
             pendingStart = nil
             isBusy = false
+            if activeID == nil { phase = .idle }
         }
 
         let session = AVAudioSession.sharedInstance()
@@ -84,6 +92,7 @@ final class CaptureController: NSObject, ObservableObject, AVAudioRecorderDelega
             guard prepared.record() else { throw CaptureError.startFailed }
 
             activeID = id
+            phase = .recording
             startedAt = date
             observeSession(id: id)
             feedback.impactOccurred()
@@ -113,7 +122,10 @@ final class CaptureController: NSObject, ObservableObject, AVAudioRecorderDelega
     private func finish(id: UUID, savedMessage: String) async throws {
         guard activeID == id, let recorder else { return }
         isBusy = true
-        defer { isBusy = false }
+        phase = .saving
+        defer { isBusy = false; phase = .idle }
+        meterLease = nil
+        recorder.isMeteringEnabled = false
         sessionObservers.forEach { NotificationCenter.default.removeObserver($0) }
         sessionObservers.removeAll()
         activityObserver?.cancel()
@@ -143,6 +155,27 @@ final class CaptureController: NSObject, ObservableObject, AVAudioRecorderDelega
         }
         await finishedActivity?.end(nil, dismissalPolicy: .immediate)
         if let saveError { throw saveError }
+    }
+
+    /// The visible recorder owns this lease; an old view task cannot disable a newer session's meter.
+    func beginMetering(recordingID: UUID) -> UUID? {
+        guard activeID == recordingID, phase == .recording, let recorder else { return nil }
+        let lease = UUID()
+        meterLease = lease
+        recorder.isMeteringEnabled = true
+        return lease
+    }
+
+    func inputLevel(lease: UUID) -> Float? {
+        guard meterLease == lease, phase == .recording, let recorder, recorder.isRecording else { return nil }
+        recorder.updateMeters()
+        return recorder.averagePower(forChannel: 0)
+    }
+
+    func endMetering(lease: UUID) {
+        guard meterLease == lease else { return }
+        recorder?.isMeteringEnabled = false
+        meterLease = nil
     }
 
     func recoverInterruptedRecordings() {
@@ -226,5 +259,23 @@ final class CaptureController: NSObject, ObservableObject, AVAudioRecorderDelega
             guard let self, self.recorder?.url == url, let id = self.activeID else { return }
             try? await self.finish(id: id, savedMessage: message)
         }
+    }
+}
+
+/// A short history of actual input power, not generated waveform decoration.
+struct RecordingLevelHistory {
+    static let capacity = 32
+    private(set) var values: [CGFloat] = []
+
+    mutating func append(decibels: Float) {
+        values.append(Self.normalized(decibels))
+        if values.count > Self.capacity { values.removeFirst(values.count - Self.capacity) }
+    }
+
+    static func normalized(_ decibels: Float) -> CGFloat {
+        guard decibels.isFinite, decibels > -60 else { return 0 }
+        // Square-root scaling makes quiet speech visible while retaining a genuine zero for silence.
+        let amplitude = pow(10.0, Double(min(decibels, 0)) / 20)
+        return CGFloat(sqrt(max(0, (amplitude - 0.001) / 0.999)))
     }
 }

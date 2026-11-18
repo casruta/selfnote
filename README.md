@@ -24,13 +24,14 @@ On an iPhone with an Action button, choose **Settings → Action Button → Shor
 ## Your notebook
 
 - Stop closes the audio file. The notebook imports the finished recording under a stable ID and transcribes it when the app can run and read protected data. The first use of a speech language may download Apple’s model. For an offline test, finish one note in that language first.
-- The inbox supports search. Open a note to edit, play the audio, check a task, share Markdown text, or delete the note and its recording. The original transcript remains available after editing.
+- The inbox supports search. Open a note to edit its summary and body, play the audio, check a task, share Markdown text, or delete the note and its recording. The original transcript remains available after editing. The summary uses sentences from the transcript and works without Apple Intelligence.
+- When a new transcription is saved, Selfnote writes a Markdown snapshot (summary, notes, and original transcript) to **Files → On My iPhone → Selfnote → Notes**. For an older note, tap **Save a copy to Files**. Audio and the notebook database are not exposed in Files. Later edits do not sync, and deleting a note in Selfnote does not delete its saved Files copy.
 - Short opening phrases can become titles. Ordinary speech stays as prose. In English, explicit cues such as “To do, buy two clay pots” and “Bullet, bring gloves” create checklist or list items when recognized with a cue delimiter. “I might plant mint” remains a thought.
 - If transcription fails, the note retains its audio. Open it to retry, choose another supported language, or enter the text yourself. Notes and recordings use ordinary device backup settings.
 
 ## Verify on the phone
 
-Try ten starts with your normal case and record which gestures the phone recognizes. Say a distinctive first and last word, then play the saved clip. Try another Start while recording, a phone call or headset disconnect, locking mid-recording, and starting from an awake but locked phone with Face ID covered. After a language download, try a recording in airplane mode. Each completed capture should yield one note and one playable recording. Hardware gesture recognition, haptic feel, and actual microphone input require a physical phone.
+Try ten starts with your normal case and record which gestures the phone recognizes. Say a distinctive first and last word, check that the in-app waveform responds to speech and settles in silence, then play the saved clip. Try another Start while recording, a phone call or headset disconnect, locking mid-recording, and starting from an awake but locked phone with Face ID covered. After a language download, try a recording in airplane mode. Each completed capture should yield one note and one playable recording. After transcription, check the Markdown copy in Files and confirm no audio or database files are visible there. Hardware gesture recognition, haptic feel, and actual microphone input require a physical phone.
 
 ## Build and test
 

@@ -10,6 +10,10 @@
     <string>Selfnote records your voice when you start a note so you can replay and transcribe it on this iPhone.</string>
     <key>NSSupportsLiveActivities</key>
     <true/>
+    <key>UIFileSharingEnabled</key>
+    <true/>
+    <key>LSSupportsOpeningDocumentsInPlace</key>
+    <true/>
     <key>UIBackgroundModes</key>
     <array><string>audio</string></array>
     <key>UIAppFonts</key>

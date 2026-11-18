@@ -12,7 +12,7 @@ enum NoteFormatter {
         let startsParagraph: Bool
     }
 
-    static func draft(from transcript: String, locale: Locale) -> Draft {
+    static func draft(from transcript: String, locale: Locale, promoteHeading: Bool = true) -> Draft {
         let tokenizer = NLTokenizer(unit: .sentence)
         let language = locale.language.languageCode?.identifier
         if let language { tokenizer.setLanguage(NLLanguage(rawValue: language)) }
@@ -37,7 +37,7 @@ enum NoteFormatter {
         let phrase = firstCue.flatMap { $0.content.isEmpty ? nil : $0.content } ?? first.text
         let fullTitle = phrase.hasSuffix(".") && !phrase.hasSuffix("..") ? String(phrase.dropLast()) : phrase
         let title = fullTitle.count <= 64 ? fullTitle : String(fullTitle.prefix(61)) + "…"
-        let useFirstAsHeading = sentences.count > 1 && firstCue == nil && fullTitle.count <= 48
+        let useFirstAsHeading = promoteHeading && sentences.count > 1 && firstCue == nil && fullTitle.count <= 48
             && fullTitle.split(whereSeparator: \.isWhitespace).count <= 5
 
         var body = ""

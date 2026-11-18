@@ -35,7 +35,9 @@ final class VoiceNote {
     var displayTitle: String { title.isEmpty ? "Voice note" : title }
 
     func acceptTranscript(_ text: String) {
-        let draft = NoteFormatter.draft(from: text, locale: Locale(identifier: localeIdentifier))
+        let draft = NoteFormatter.draft(
+            from: text, locale: Locale(identifier: localeIdentifier), promoteHeading: !editedTitle
+        )
         originalTranscript = text
         if !editedTitle { title = draft.title }
         if !editedBody { body = draft.body }

@@ -10,6 +10,10 @@ final class RecorderEntryTests: XCTestCase {
         XCTAssertTrue(app.buttons["startRecording"].waitForExistence(timeout: 15))
         let setup = app.buttons["recordingSetup"]
         XCTAssertTrue(setup.waitForExistence(timeout: 8))
+        let notebook = XCTAttachment(screenshot: app.screenshot())
+        notebook.name = "Selfnote notebook"
+        notebook.lifetime = .keepAlways
+        add(notebook)
         setup.tap()
 
         XCTAssertTrue(app.navigationBars["Recording setup"].waitForExistence(timeout: 8))

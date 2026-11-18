@@ -30,15 +30,46 @@ final class NoteTests: XCTestCase {
         let note = VoiceNote(recordingID: UUID(), createdAt: .now, locale: english)
         note.title = "My heading"
         note.editedTitle = true
-        note.acceptTranscript("Planning. Keep the original.")
+        let spoken = "Don’t pay Maya. The invoice is disputed."
+        note.acceptTranscript(spoken)
         XCTAssertEqual(note.title, "My heading")
-        XCTAssertEqual(note.body, "Keep the original.")
+        XCTAssertEqual(note.body, spoken)
+        XCTAssertEqual(note.exportText, "# My heading\n\n\(spoken)\n")
         note.body = "I changed my mind."
         note.editedBody = true
         note.acceptTranscript("Planning. A second result.")
         XCTAssertEqual(note.body, "I changed my mind.")
         XCTAssertEqual(note.originalTranscript, "Planning. A second result.")
         XCTAssertEqual(note.exportText, "# My heading\n\nI changed my mind.\n")
+    }
+
+    func testImportedNotesKeepTheirOriginalDefaultLanguage() throws {
+        let (folder, container) = try makeStorage()
+        defer { try? FileManager.default.removeItem(at: folder) }
+        let suite = "SelfnoteTests.\(UUID().uuidString)"
+        let preferences = try XCTUnwrap(UserDefaults(suiteName: suite))
+        defer { preferences.removePersistentDomain(forName: suite) }
+        let store = NoteStore(container: container, directory: { folder }, preferences: preferences) { _, _, _ in "Unused" }
+
+        let deviceDefaultID = UUID()
+        try Data([1]).write(to: folder.appendingPathComponent(deviceDefaultID.uuidString + ".caf"))
+        store.synchronize()
+        let frenchID = UUID()
+        let french = Locale(identifier: "fr-CA")
+        preferences.set(french.identifier, forKey: LocalTranscriber.languageKey)
+        try Data([2]).write(to: folder.appendingPathComponent(frenchID.uuidString + ".caf"))
+        store.synchronize()
+        let germanID = UUID()
+        let german = Locale(identifier: "de-DE")
+        preferences.set(german.identifier, forKey: LocalTranscriber.languageKey)
+        try Data([3]).write(to: folder.appendingPathComponent(germanID.uuidString + ".caf"))
+        store.synchronize()
+
+        let notes = try container.mainContext.fetch(FetchDescriptor<VoiceNote>())
+        let languages = Dictionary(uniqueKeysWithValues: notes.map { ($0.recordingID, $0.localeIdentifier) })
+        XCTAssertEqual(languages, [
+            deviceDefaultID: Locale.current.identifier, frenchID: french.identifier, germanID: german.identifier
+        ])
     }
 
     func testScansOnceAndRecoversPendingDeletion() throws {

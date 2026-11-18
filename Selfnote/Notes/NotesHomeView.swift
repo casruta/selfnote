@@ -127,6 +127,7 @@ private struct NotesInbox: View {
                 }
                 .padding(.vertical, 5)
             }
+            .accessibilityIdentifier("noteRow-" + note.recordingID.uuidString)
         }
         .listStyle(.plain)
         .overlay {

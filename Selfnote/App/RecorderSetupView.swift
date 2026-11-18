@@ -20,6 +20,7 @@ struct RecorderSetupView: View {
             Section("Control Center and Lock Screen") {
                 Text("Add Selfnote’s Record Note control from the controls gallery. The recording Live Activity shows elapsed time and Stop. iPhone may ask you to unlock.")
             }
+            SpeechSetupSection()
         }
         .navigationTitle("Recording setup")
         .navigationBarTitleDisplayMode(.inline)

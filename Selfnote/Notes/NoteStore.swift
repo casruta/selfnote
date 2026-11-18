@@ -12,6 +12,7 @@ final class NoteStore {
 
     let container: ModelContainer
     private let directory: () throws -> URL
+    private let preferences: UserDefaults
     private let transcribe: Transcribe
     private var isForeground = false
     @ObservationIgnored private var worker: Task<Void, Never>?
@@ -27,9 +28,13 @@ final class NoteStore {
         self.init(container: container, directory: CaptureFiles.directory, transcribe: LocalTranscriber.transcribe)
     }
 
-    init(container: ModelContainer, directory: @escaping () throws -> URL, transcribe: @escaping Transcribe) {
+    init(
+        container: ModelContainer, directory: @escaping () throws -> URL,
+        preferences: UserDefaults = .standard, transcribe: @escaping Transcribe
+    ) {
         self.container = container
         self.directory = directory
+        self.preferences = preferences
         self.transcribe = transcribe
         container.mainContext.autosaveEnabled = false
     }
@@ -62,6 +67,7 @@ final class NoteStore {
                 includingPropertiesForKeys: [.creationDateKey, .isRegularFileKey],
                 options: [.skipsHiddenFiles]
             )
+            let locale = LocalTranscriber.preferredLocale(preferences.string(forKey: LocalTranscriber.languageKey))
             for file in files where file.pathExtension.lowercased() == "caf" {
                 guard let id = UUID(uuidString: file.deletingPathExtension().lastPathComponent),
                       known.insert(id).inserted else { continue }
@@ -69,7 +75,7 @@ final class NoteStore {
                 guard values.isRegularFile == true else { continue }
                 context.insert(VoiceNote(
                     recordingID: id, createdAt: values.creationDate ?? .now,
-                    locale: .current, audioFilename: file.lastPathComponent
+                    locale: locale, audioFilename: file.lastPathComponent
                 ))
             }
             if context.hasChanges { try context.save() }

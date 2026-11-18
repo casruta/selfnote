@@ -40,7 +40,7 @@ struct NoteDetailView: View {
 
                 transcriptionStatus
                 if isEditing {
-                    TextEditor(text: Binding(get: { note.body }, set: updateBody))
+                    TextEditor(text: Binding(get: { note.body }, set: { updateBody($0) }))
                         .font(.body).frame(minHeight: 220)
                         .accessibilityLabel("Note body in Markdown")
                 } else if !note.body.isEmpty {
@@ -166,36 +166,6 @@ struct NoteDetailView: View {
         note.body = text
         note.editedBody = true
         store.saveEdits()
-    }
-}
-
-private struct NoteLanguagePicker: View {
-    let choose: (Locale) -> Void
-    @Environment(\.dismiss) private var dismiss
-    @State private var locales: [Locale] = []
-    @State private var loading = true
-    @State private var search = ""
-
-    var body: some View {
-        NavigationStack {
-            List(locales.filter { search.isEmpty || LocalTranscriber.name($0).localizedStandardContains(search) },
-                 id: \.identifier) { locale in
-                Button(LocalTranscriber.name(locale)) { choose(locale) }
-            }
-            .overlay {
-                if loading { ProgressView() }
-                else if locales.isEmpty { ContentUnavailableView("No on-device languages available", systemImage: "waveform.slash") }
-            }
-            .navigationTitle("Speech language")
-            .searchable(text: $search)
-            .toolbar {
-                ToolbarItem(placement: .cancellationAction) { Button("Cancel") { dismiss() } }
-            }
-            .task {
-                locales = await LocalTranscriber.availableLocales()
-                loading = false
-            }
-        }
     }
 }
 

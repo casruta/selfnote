@@ -33,7 +33,16 @@ jobs:
           extension="$app/PlugIns/SelfnoteWidgets.appex"
           test -x "$app/Selfnote"
           test -x "$extension/SelfnoteWidgets"
-          test -s "$app/Metadata.appintents/extract.actionsdata"
+          python3 - "$app/Metadata.appintents/extract.actionsdata" <<'PY'
+          import json, sys
+
+          with open(sys.argv[1]) as source:
+              metadata = json.load(source)
+          start = metadata["actions"]["StartRecordingIntent"]
+          assert start["isDiscoverable"] and start["title"]["key"] == "Start Recording"
+          assert any(shortcut["actionIdentifier"] == "StartRecordingIntent"
+                     for shortcut in metadata["autoShortcuts"])
+          PY
           test -s "$app/InstrumentSans.ttf"
           test "$(plutil -extract NSSupportsLiveActivities raw "$app/Info.plist")" = true
           test "$(plutil -extract NSExtension.NSExtensionPointIdentifier raw "$extension/Info.plist")" = com.apple.widgetkit-extension
@@ -76,12 +85,30 @@ jobs:
           xcrun simctl bootstatus "$device" -b
 
       - name: Run unit and UI tests
+        id: tests
         run: |
           xcodebuild -quiet -project Selfnote.xcodeproj -scheme Selfnote \
-            -configuration Debug -destination "platform=iOS Simulator,id=$TEST_DEVICE" \
+            -configuration Debug -destination "platform=iOS Simulator,arch=arm64,id=$TEST_DEVICE" \
             -derivedDataPath "$RUNNER_TEMP/simulator" \
             -resultBundlePath "$RUNNER_TEMP/Selfnote.xcresult" \
             -parallel-testing-enabled NO test
+
+      - name: Summarize tests and collect UI evidence
+        if: ${{ !cancelled() && (steps.tests.outcome == 'success' || steps.tests.outcome == 'failure') }}
+        run: |
+          if [ ! -d "$RUNNER_TEMP/Selfnote.xcresult" ]; then exit 0; fi
+          xcrun xcresulttool get test-results summary --path "$RUNNER_TEMP/Selfnote.xcresult"
+          xcrun xcresulttool export attachments --path "$RUNNER_TEMP/Selfnote.xcresult" \
+            --output-path "$RUNNER_TEMP/ui-evidence"
+
+      - name: Upload simulator screenshots
+        uses: actions/upload-artifact@v4
+        with:
+          name: Selfnote-simulator-evidence
+          path: |
+            ${{ runner.temp }}/ui-evidence/*.png
+            ${{ runner.temp }}/ui-evidence/manifest.json
+          if-no-files-found: ignore
 
       - name: Save diagnostics on failure
         if: failure()

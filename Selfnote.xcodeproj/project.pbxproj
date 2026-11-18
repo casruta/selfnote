@@ -50,6 +50,10 @@
 			isa = "PBXBuildFile";
 			fileRef = 72FB24FF237AA69FC3057CA5 /* LocalTranscriber.swift */;
 		};
+		CC3F1ADD929AA1E016F3D83C /* SpeechSetupSection.swift in Sources */ = {
+			isa = "PBXBuildFile";
+			fileRef = F4B37FEB4F598C72B3112B49 /* SpeechSetupSection.swift */;
+		};
 		7B16A91A8266170F3C259710 /* RecordingAttributes.swift in Sources */ = {
 			isa = "PBXBuildFile";
 			fileRef = 6B5C35AB026D49B06A3B755A /* RecordingAttributes.swift */;
@@ -69,6 +73,10 @@
 		7EB01C3650182B4C84C4490A /* OFL.txt in Resources */ = {
 			isa = "PBXBuildFile";
 			fileRef = 72613E76533E15CF4886B90D /* OFL.txt */;
+		};
+		CB5D492286AAE1ECA49F9278 /* PrivacyInfo.xcprivacy in Resources */ = {
+			isa = "PBXBuildFile";
+			fileRef = BDFE77E32832BD0B9372E232 /* PrivacyInfo.xcprivacy */;
 		};
 		E276787DD713DEAA27FC799A /* SelfnoteWidgets.appex in Embed App Extensions */ = {
 			isa = "PBXBuildFile";
@@ -98,6 +106,10 @@
 		2D01F851C890B665CF9C26D2 /* NoteTests.swift in Sources */ = {
 			isa = "PBXBuildFile";
 			fileRef = 766B3D10727F66F3C31F6E36 /* NoteTests.swift */;
+		};
+		443710BEC5E885B3C868410C /* CaptureFlowTests.swift in Sources */ = {
+			isa = "PBXBuildFile";
+			fileRef = C6223F68BC210F1FDA784AF3 /* CaptureFlowTests.swift */;
 		};
 		070358CD20C822D5C3C9C6D9 /* RecorderEntryTests.swift in Sources */ = {
 			isa = "PBXBuildFile";
@@ -240,10 +252,22 @@
 			path = "OFL.txt";
 			sourceTree = "<group>";
 		};
+		BDFE77E32832BD0B9372E232 /* PrivacyInfo.xcprivacy */ = {
+			isa = "PBXFileReference";
+			lastKnownFileType = "text.xml";
+			path = "PrivacyInfo.xcprivacy";
+			sourceTree = "<group>";
+		};
 		72FB24FF237AA69FC3057CA5 /* LocalTranscriber.swift */ = {
 			isa = "PBXFileReference";
 			lastKnownFileType = "sourcecode.swift";
 			path = "LocalTranscriber.swift";
+			sourceTree = "<group>";
+		};
+		F4B37FEB4F598C72B3112B49 /* SpeechSetupSection.swift */ = {
+			isa = "PBXFileReference";
+			lastKnownFileType = "sourcecode.swift";
+			path = "SpeechSetupSection.swift";
 			sourceTree = "<group>";
 		};
 		8E49F4E835F6E30F5585F40C /* CaptureFilesTests.swift */ = {
@@ -256,6 +280,12 @@
 			isa = "PBXFileReference";
 			lastKnownFileType = "sourcecode.swift";
 			path = "NoteTests.swift";
+			sourceTree = "<group>";
+		};
+		C6223F68BC210F1FDA784AF3 /* CaptureFlowTests.swift */ = {
+			isa = "PBXFileReference";
+			lastKnownFileType = "sourcecode.swift";
+			path = "CaptureFlowTests.swift";
 			sourceTree = "<group>";
 		};
 		322CBDABDE10083427C4E9FB /* RecorderEntryTests.swift */ = {
@@ -383,6 +413,7 @@
 		4EE49728F9D5585751299ED9 /* Resources */ = {
 			isa = "PBXGroup";
 			children = (
+				BDFE77E32832BD0B9372E232 /* PrivacyInfo.xcprivacy */,
 				79B2096E6126D97B75ECB945 /* Fonts */,
 			);
 			path = "Resources";
@@ -392,6 +423,7 @@
 			isa = "PBXGroup";
 			children = (
 				72FB24FF237AA69FC3057CA5 /* LocalTranscriber.swift */,
+				F4B37FEB4F598C72B3112B49 /* SpeechSetupSection.swift */,
 			);
 			path = "Transcription";
 			sourceTree = "<group>";
@@ -431,6 +463,7 @@
 		6DA9239AF21705842162CE1A /* SelfnoteUITests */ = {
 			isa = "PBXGroup";
 			children = (
+				C6223F68BC210F1FDA784AF3 /* CaptureFlowTests.swift */,
 				322CBDABDE10083427C4E9FB /* RecorderEntryTests.swift */,
 			);
 			path = "SelfnoteUITests";
@@ -602,6 +635,7 @@
 				8E55842F845148EF95DD922B /* Assets.xcassets in Resources */,
 				D7BE7D58D78E6A9F0B571D84 /* InstrumentSans.ttf in Resources */,
 				7EB01C3650182B4C84C4490A /* OFL.txt in Resources */,
+				CB5D492286AAE1ECA49F9278 /* PrivacyInfo.xcprivacy in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -641,6 +675,7 @@
 				63CC0B4C448C6192E8E1F0A6 /* NotesHomeView.swift in Sources */,
 				61BA36EF0A95F501285A4F0F /* VoiceNote.swift in Sources */,
 				8AA2FB5BFC035D195B1B447C /* LocalTranscriber.swift in Sources */,
+				CC3F1ADD929AA1E016F3D83C /* SpeechSetupSection.swift in Sources */,
 				7B16A91A8266170F3C259710 /* RecordingAttributes.swift in Sources */,
 				9E02DE1C617A5068BE2F0D1C /* RecordingIntents.swift in Sources */,
 			);
@@ -669,6 +704,7 @@
 			isa = "PBXSourcesBuildPhase";
 			buildActionMask = 2147483647;
 			files = (
+				443710BEC5E885B3C868410C /* CaptureFlowTests.swift in Sources */,
 				070358CD20C822D5C3C9C6D9 /* RecorderEntryTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

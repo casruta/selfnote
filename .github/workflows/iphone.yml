@@ -1,0 +1,92 @@
+name: iPhone build and tests
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: iphone-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  iphone:
+    runs-on: macos-26
+    timeout-minutes: 35
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Build the iPhone app and its widget extension
+        run: |
+          xcodebuild -version
+          xcodebuild -quiet -project Selfnote.xcodeproj -scheme Selfnote \
+            -configuration Release -destination 'generic/platform=iOS' \
+            -derivedDataPath "$RUNNER_TEMP/device" CODE_SIGNING_ALLOWED=NO build
+
+      - name: Verify device bundle and package for Windows signing
+        run: |
+          app="$RUNNER_TEMP/device/Build/Products/Release-iphoneos/Selfnote.app"
+          extension="$app/PlugIns/SelfnoteWidgets.appex"
+          test -x "$app/Selfnote"
+          test -x "$extension/SelfnoteWidgets"
+          test -s "$app/Metadata.appintents/extract.actionsdata"
+          test -s "$app/InstrumentSans.ttf"
+          test "$(plutil -extract NSSupportsLiveActivities raw "$app/Info.plist")" = true
+          test "$(plutil -extract NSExtension.NSExtensionPointIdentifier raw "$extension/Info.plist")" = com.apple.widgetkit-extension
+          lipo "$app/Selfnote" -verify_arch arm64
+          lipo "$extension/SelfnoteWidgets" -verify_arch arm64
+          mkdir -p "$RUNNER_TEMP/package/Payload"
+          ditto "$app" "$RUNNER_TEMP/package/Payload/Selfnote.app"
+          cd "$RUNNER_TEMP/package"
+          ditto -c -k --norsrc --keepParent Payload "$RUNNER_TEMP/Selfnote.ipa"
+          unzip -tq "$RUNNER_TEMP/Selfnote.ipa"
+          shasum -a 256 "$RUNNER_TEMP/Selfnote.ipa"
+
+      - name: Upload device IPA
+        uses: actions/upload-artifact@v4
+        with:
+          name: Selfnote-iPhone
+          path: ${{ runner.temp }}/Selfnote.ipa
+          compression-level: 0
+          if-no-files-found: error
+
+      - name: Start an available iOS 26 iPhone simulator
+        run: |
+          xcrun simctl list -j devices available > "$RUNNER_TEMP/simulators.json"
+          device=$(python3 - "$RUNNER_TEMP/simulators.json" <<'PY'
+          import json, sys
+
+          devices = json.load(open(sys.argv[1]))["devices"]
+          options = []
+          for runtime, phones in devices.items():
+              if ".iOS-26-" in runtime:
+                  version = tuple(map(int, runtime.rsplit("iOS-", 1)[1].split("-")))
+                  options.extend((version, phone["name"], phone["udid"])
+                                 for phone in phones if phone["name"].startswith("iPhone"))
+          if not options:
+              sys.exit("An iOS 26 iPhone simulator is required")
+          print(max(options)[2])
+          PY
+          )
+          echo "TEST_DEVICE=$device" >> "$GITHUB_ENV"
+          xcrun simctl bootstatus "$device" -b
+
+      - name: Run unit and UI tests
+        run: |
+          xcodebuild -quiet -project Selfnote.xcodeproj -scheme Selfnote \
+            -configuration Debug -destination "platform=iOS Simulator,id=$TEST_DEVICE" \
+            -derivedDataPath "$RUNNER_TEMP/simulator" \
+            -resultBundlePath "$RUNNER_TEMP/Selfnote.xcresult" \
+            -parallel-testing-enabled NO test
+
+      - name: Save diagnostics on failure
+        if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: Selfnote-test-diagnostics
+          path: ${{ runner.temp }}/Selfnote.xcresult
+          if-no-files-found: ignore

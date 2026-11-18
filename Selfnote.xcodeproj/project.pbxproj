@@ -1,0 +1,905 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {};
+	objectVersion = 56;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		BA6C860B11F36429847AD738 /* RecorderSetupView.swift in Sources */ = {
+			isa = "PBXBuildFile";
+			fileRef = 9D2BEEF37CEDA736C4B614D5 /* RecorderSetupView.swift */;
+		};
+		562753F21C54A98AC16C09AD /* RecordingBar.swift in Sources */ = {
+			isa = "PBXBuildFile";
+			fileRef = 3EEC0261DCAF170868A33A24 /* RecordingBar.swift */;
+		};
+		99BCFCA50D09C35D1F83999B /* SelfnoteApp.swift in Sources */ = {
+			isa = "PBXBuildFile";
+			fileRef = 3FA99CCFA84948AFF680D8AA /* SelfnoteApp.swift */;
+		};
+		36F4BA97A0D00955119D90E5 /* CaptureController.swift in Sources */ = {
+			isa = "PBXBuildFile";
+			fileRef = 7A36D9E097DB32CD5B5B377A /* CaptureController.swift */;
+		};
+		923114749E163743AEEA8F22 /* CaptureFiles.swift in Sources */ = {
+			isa = "PBXBuildFile";
+			fileRef = F5795DD4C7642971024DDD7D /* CaptureFiles.swift */;
+		};
+		FA51DEC618A220B70878A463 /* NoteDetailView.swift in Sources */ = {
+			isa = "PBXBuildFile";
+			fileRef = 05ACECCD94801E55AEABDD0B /* NoteDetailView.swift */;
+		};
+		4D3D614A98367303F2485838 /* NoteFormatter.swift in Sources */ = {
+			isa = "PBXBuildFile";
+			fileRef = 8A5167AB51C3B91EB8725ECD /* NoteFormatter.swift */;
+		};
+		934E4419E55CED5359CAF5FD /* NoteStore.swift in Sources */ = {
+			isa = "PBXBuildFile";
+			fileRef = 1B60B08585DB6817B5294B64 /* NoteStore.swift */;
+		};
+		63CC0B4C448C6192E8E1F0A6 /* NotesHomeView.swift in Sources */ = {
+			isa = "PBXBuildFile";
+			fileRef = EDA36DA6F55B5B539AB2B041 /* NotesHomeView.swift */;
+		};
+		61BA36EF0A95F501285A4F0F /* VoiceNote.swift in Sources */ = {
+			isa = "PBXBuildFile";
+			fileRef = F69DC1DA29094D8B143F2067 /* VoiceNote.swift */;
+		};
+		8AA2FB5BFC035D195B1B447C /* LocalTranscriber.swift in Sources */ = {
+			isa = "PBXBuildFile";
+			fileRef = 72FB24FF237AA69FC3057CA5 /* LocalTranscriber.swift */;
+		};
+		7B16A91A8266170F3C259710 /* RecordingAttributes.swift in Sources */ = {
+			isa = "PBXBuildFile";
+			fileRef = 6B5C35AB026D49B06A3B755A /* RecordingAttributes.swift */;
+		};
+		9E02DE1C617A5068BE2F0D1C /* RecordingIntents.swift in Sources */ = {
+			isa = "PBXBuildFile";
+			fileRef = CC6C903C33E0B02E54040A6E /* RecordingIntents.swift */;
+		};
+		8E55842F845148EF95DD922B /* Assets.xcassets in Resources */ = {
+			isa = "PBXBuildFile";
+			fileRef = 646BAFA503402C5CB56DE1D9 /* Assets.xcassets */;
+		};
+		D7BE7D58D78E6A9F0B571D84 /* InstrumentSans.ttf in Resources */ = {
+			isa = "PBXBuildFile";
+			fileRef = CF3A4FFDF5C2EB2A7817C7DD /* InstrumentSans.ttf */;
+		};
+		7EB01C3650182B4C84C4490A /* OFL.txt in Resources */ = {
+			isa = "PBXBuildFile";
+			fileRef = 72613E76533E15CF4886B90D /* OFL.txt */;
+		};
+		E276787DD713DEAA27FC799A /* SelfnoteWidgets.appex in Embed App Extensions */ = {
+			isa = "PBXBuildFile";
+			fileRef = B72895A989C83F8D0F2E7DE8 /* SelfnoteWidgets.appex */;
+			settings = {
+				ATTRIBUTES = (
+					"RemoveHeadersOnCopy",
+				);
+			};
+		};
+		80DB750668DA90F4D930E7CB /* SelfnoteWidgets.swift in Sources */ = {
+			isa = "PBXBuildFile";
+			fileRef = 133E6B6F39FCCB87BB240DAF /* SelfnoteWidgets.swift */;
+		};
+		30B586AEF0950FBDBEA85A46 /* RecordingAttributes.swift in Sources */ = {
+			isa = "PBXBuildFile";
+			fileRef = 6B5C35AB026D49B06A3B755A /* RecordingAttributes.swift */;
+		};
+		D9494B2F7195F5DE339D2118 /* RecordingIntents.swift in Sources */ = {
+			isa = "PBXBuildFile";
+			fileRef = CC6C903C33E0B02E54040A6E /* RecordingIntents.swift */;
+		};
+		791A1952A7B0BE3D6E7A0076 /* CaptureFilesTests.swift in Sources */ = {
+			isa = "PBXBuildFile";
+			fileRef = 8E49F4E835F6E30F5585F40C /* CaptureFilesTests.swift */;
+		};
+		2D01F851C890B665CF9C26D2 /* NoteTests.swift in Sources */ = {
+			isa = "PBXBuildFile";
+			fileRef = 766B3D10727F66F3C31F6E36 /* NoteTests.swift */;
+		};
+		070358CD20C822D5C3C9C6D9 /* RecorderEntryTests.swift in Sources */ = {
+			isa = "PBXBuildFile";
+			fileRef = 322CBDABDE10083427C4E9FB /* RecorderEntryTests.swift */;
+		};
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		415924E7C13CB0D851F1EC8C /* SelfnoteWidgets */ = {
+			isa = "PBXContainerItemProxy";
+			containerPortal = 77F6421905A7052A93C9DF08 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = "864C732BD55688045114D69C";
+			remoteInfo = "SelfnoteWidgets";
+		};
+		F0AB5BD70B3F4EC066C33251 /* Selfnote */ = {
+			isa = "PBXContainerItemProxy";
+			containerPortal = 77F6421905A7052A93C9DF08 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = "1E35D37F56FC96A00D4C4845";
+			remoteInfo = "Selfnote";
+		};
+		FC3FEAB2A8C17F60A8AB46D1 /* Selfnote */ = {
+			isa = "PBXContainerItemProxy";
+			containerPortal = 77F6421905A7052A93C9DF08 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = "1E35D37F56FC96A00D4C4845";
+			remoteInfo = "Selfnote";
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		CFEF8212CFBBE1EBEDAA7EFD /* Embed App Extensions */ = {
+			isa = "PBXCopyFilesBuildPhase";
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 13;
+			files = (
+				E276787DD713DEAA27FC799A /* SelfnoteWidgets.appex in Embed App Extensions */,
+			);
+			name = "Embed App Extensions";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
+/* Begin PBXFileReference section */
+		BF4D47FEABFED705A2865EF2 /* Selfnote-Info.plist */ = {
+			isa = "PBXFileReference";
+			lastKnownFileType = "text.plist.xml";
+			path = "Selfnote-Info.plist";
+			sourceTree = "<group>";
+		};
+		ACDD896FA34AD5E4A4FAA4E7 /* Signing.xcconfig */ = {
+			isa = "PBXFileReference";
+			lastKnownFileType = "text.xcconfig";
+			path = "Signing.xcconfig";
+			sourceTree = "<group>";
+		};
+		26FEF313614626643A8DDDA9 /* Widgets-Info.plist */ = {
+			isa = "PBXFileReference";
+			lastKnownFileType = "text.plist.xml";
+			path = "Widgets-Info.plist";
+			sourceTree = "<group>";
+		};
+		9D2BEEF37CEDA736C4B614D5 /* RecorderSetupView.swift */ = {
+			isa = "PBXFileReference";
+			lastKnownFileType = "sourcecode.swift";
+			path = "RecorderSetupView.swift";
+			sourceTree = "<group>";
+		};
+		3EEC0261DCAF170868A33A24 /* RecordingBar.swift */ = {
+			isa = "PBXFileReference";
+			lastKnownFileType = "sourcecode.swift";
+			path = "RecordingBar.swift";
+			sourceTree = "<group>";
+		};
+		3FA99CCFA84948AFF680D8AA /* SelfnoteApp.swift */ = {
+			isa = "PBXFileReference";
+			lastKnownFileType = "sourcecode.swift";
+			path = "SelfnoteApp.swift";
+			sourceTree = "<group>";
+		};
+		646BAFA503402C5CB56DE1D9 /* Assets.xcassets */ = {
+			isa = "PBXFileReference";
+			lastKnownFileType = "folder.assetcatalog";
+			path = "Assets.xcassets";
+			sourceTree = "<group>";
+		};
+		7A36D9E097DB32CD5B5B377A /* CaptureController.swift */ = {
+			isa = "PBXFileReference";
+			lastKnownFileType = "sourcecode.swift";
+			path = "CaptureController.swift";
+			sourceTree = "<group>";
+		};
+		F5795DD4C7642971024DDD7D /* CaptureFiles.swift */ = {
+			isa = "PBXFileReference";
+			lastKnownFileType = "sourcecode.swift";
+			path = "CaptureFiles.swift";
+			sourceTree = "<group>";
+		};
+		05ACECCD94801E55AEABDD0B /* NoteDetailView.swift */ = {
+			isa = "PBXFileReference";
+			lastKnownFileType = "sourcecode.swift";
+			path = "NoteDetailView.swift";
+			sourceTree = "<group>";
+		};
+		8A5167AB51C3B91EB8725ECD /* NoteFormatter.swift */ = {
+			isa = "PBXFileReference";
+			lastKnownFileType = "sourcecode.swift";
+			path = "NoteFormatter.swift";
+			sourceTree = "<group>";
+		};
+		1B60B08585DB6817B5294B64 /* NoteStore.swift */ = {
+			isa = "PBXFileReference";
+			lastKnownFileType = "sourcecode.swift";
+			path = "NoteStore.swift";
+			sourceTree = "<group>";
+		};
+		EDA36DA6F55B5B539AB2B041 /* NotesHomeView.swift */ = {
+			isa = "PBXFileReference";
+			lastKnownFileType = "sourcecode.swift";
+			path = "NotesHomeView.swift";
+			sourceTree = "<group>";
+		};
+		F69DC1DA29094D8B143F2067 /* VoiceNote.swift */ = {
+			isa = "PBXFileReference";
+			lastKnownFileType = "sourcecode.swift";
+			path = "VoiceNote.swift";
+			sourceTree = "<group>";
+		};
+		CF3A4FFDF5C2EB2A7817C7DD /* InstrumentSans.ttf */ = {
+			isa = "PBXFileReference";
+			lastKnownFileType = "file";
+			path = "InstrumentSans.ttf";
+			sourceTree = "<group>";
+		};
+		72613E76533E15CF4886B90D /* OFL.txt */ = {
+			isa = "PBXFileReference";
+			lastKnownFileType = "text";
+			path = "OFL.txt";
+			sourceTree = "<group>";
+		};
+		72FB24FF237AA69FC3057CA5 /* LocalTranscriber.swift */ = {
+			isa = "PBXFileReference";
+			lastKnownFileType = "sourcecode.swift";
+			path = "LocalTranscriber.swift";
+			sourceTree = "<group>";
+		};
+		8E49F4E835F6E30F5585F40C /* CaptureFilesTests.swift */ = {
+			isa = "PBXFileReference";
+			lastKnownFileType = "sourcecode.swift";
+			path = "CaptureFilesTests.swift";
+			sourceTree = "<group>";
+		};
+		766B3D10727F66F3C31F6E36 /* NoteTests.swift */ = {
+			isa = "PBXFileReference";
+			lastKnownFileType = "sourcecode.swift";
+			path = "NoteTests.swift";
+			sourceTree = "<group>";
+		};
+		322CBDABDE10083427C4E9FB /* RecorderEntryTests.swift */ = {
+			isa = "PBXFileReference";
+			lastKnownFileType = "sourcecode.swift";
+			path = "RecorderEntryTests.swift";
+			sourceTree = "<group>";
+		};
+		133E6B6F39FCCB87BB240DAF /* SelfnoteWidgets.swift */ = {
+			isa = "PBXFileReference";
+			lastKnownFileType = "sourcecode.swift";
+			path = "SelfnoteWidgets.swift";
+			sourceTree = "<group>";
+		};
+		6B5C35AB026D49B06A3B755A /* RecordingAttributes.swift */ = {
+			isa = "PBXFileReference";
+			lastKnownFileType = "sourcecode.swift";
+			path = "RecordingAttributes.swift";
+			sourceTree = "<group>";
+		};
+		CC6C903C33E0B02E54040A6E /* RecordingIntents.swift */ = {
+			isa = "PBXFileReference";
+			lastKnownFileType = "sourcecode.swift";
+			path = "RecordingIntents.swift";
+			sourceTree = "<group>";
+		};
+		8DCCC32F0172F901F151BFB5 /* Selfnote.app */ = {
+			isa = "PBXFileReference";
+			explicitFileType = "wrapper.application";
+			includeInIndex = 0;
+			path = "Selfnote.app";
+			sourceTree = "BUILT_PRODUCTS_DIR";
+		};
+		B72895A989C83F8D0F2E7DE8 /* SelfnoteWidgets.appex */ = {
+			isa = "PBXFileReference";
+			explicitFileType = "wrapper.app-extension";
+			includeInIndex = 0;
+			path = "SelfnoteWidgets.appex";
+			sourceTree = "BUILT_PRODUCTS_DIR";
+		};
+		789CA4D0334DF8F01A6A4447 /* SelfnoteTests.xctest */ = {
+			isa = "PBXFileReference";
+			explicitFileType = "wrapper.cfbundle";
+			includeInIndex = 0;
+			path = "SelfnoteTests.xctest";
+			sourceTree = "BUILT_PRODUCTS_DIR";
+		};
+		A87F137CB425E5B7C25AAFDD /* SelfnoteUITests.xctest */ = {
+			isa = "PBXFileReference";
+			explicitFileType = "wrapper.cfbundle";
+			includeInIndex = 0;
+			path = "SelfnoteUITests.xctest";
+			sourceTree = "BUILT_PRODUCTS_DIR";
+		};
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		E013219202CF50CA90C3D7D2 /* Frameworks */ = {
+			isa = "PBXFrameworksBuildPhase";
+			buildActionMask = 2147483647;
+			files = ();
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		0DB204BF9065E24654E860A5 /* Frameworks */ = {
+			isa = "PBXFrameworksBuildPhase";
+			buildActionMask = 2147483647;
+			files = ();
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		A02C741BFBEFFEEA5ED083E7 /* Frameworks */ = {
+			isa = "PBXFrameworksBuildPhase";
+			buildActionMask = 2147483647;
+			files = ();
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		FDBA6E1ABBE916998958771E /* Frameworks */ = {
+			isa = "PBXFrameworksBuildPhase";
+			buildActionMask = 2147483647;
+			files = ();
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		79B2096E6126D97B75ECB945 /* Fonts */ = {
+			isa = "PBXGroup";
+			children = (
+				CF3A4FFDF5C2EB2A7817C7DD /* InstrumentSans.ttf */,
+				72613E76533E15CF4886B90D /* OFL.txt */,
+			);
+			path = "Fonts";
+			sourceTree = "<group>";
+		};
+		27A266ED783E9D55B7AF7F4D /* App */ = {
+			isa = "PBXGroup";
+			children = (
+				9D2BEEF37CEDA736C4B614D5 /* RecorderSetupView.swift */,
+				3EEC0261DCAF170868A33A24 /* RecordingBar.swift */,
+				3FA99CCFA84948AFF680D8AA /* SelfnoteApp.swift */,
+			);
+			path = "App";
+			sourceTree = "<group>";
+		};
+		FBE66FE875B2450507134506 /* Capture */ = {
+			isa = "PBXGroup";
+			children = (
+				7A36D9E097DB32CD5B5B377A /* CaptureController.swift */,
+				F5795DD4C7642971024DDD7D /* CaptureFiles.swift */,
+			);
+			path = "Capture";
+			sourceTree = "<group>";
+		};
+		3D54E590C1BC4B0F56E44F23 /* Notes */ = {
+			isa = "PBXGroup";
+			children = (
+				05ACECCD94801E55AEABDD0B /* NoteDetailView.swift */,
+				8A5167AB51C3B91EB8725ECD /* NoteFormatter.swift */,
+				1B60B08585DB6817B5294B64 /* NoteStore.swift */,
+				EDA36DA6F55B5B539AB2B041 /* NotesHomeView.swift */,
+				F69DC1DA29094D8B143F2067 /* VoiceNote.swift */,
+			);
+			path = "Notes";
+			sourceTree = "<group>";
+		};
+		4EE49728F9D5585751299ED9 /* Resources */ = {
+			isa = "PBXGroup";
+			children = (
+				79B2096E6126D97B75ECB945 /* Fonts */,
+			);
+			path = "Resources";
+			sourceTree = "<group>";
+		};
+		EC7169E5C628D61F353497CB /* Transcription */ = {
+			isa = "PBXGroup";
+			children = (
+				72FB24FF237AA69FC3057CA5 /* LocalTranscriber.swift */,
+			);
+			path = "Transcription";
+			sourceTree = "<group>";
+		};
+		49AA05FE22321282D05DC19D /* Config */ = {
+			isa = "PBXGroup";
+			children = (
+				BF4D47FEABFED705A2865EF2 /* Selfnote-Info.plist */,
+				ACDD896FA34AD5E4A4FAA4E7 /* Signing.xcconfig */,
+				26FEF313614626643A8DDDA9 /* Widgets-Info.plist */,
+			);
+			path = "Config";
+			sourceTree = "<group>";
+		};
+		F8B2A5D8136830BBC45635C8 /* Selfnote */ = {
+			isa = "PBXGroup";
+			children = (
+				646BAFA503402C5CB56DE1D9 /* Assets.xcassets */,
+				27A266ED783E9D55B7AF7F4D /* App */,
+				FBE66FE875B2450507134506 /* Capture */,
+				3D54E590C1BC4B0F56E44F23 /* Notes */,
+				4EE49728F9D5585751299ED9 /* Resources */,
+				EC7169E5C628D61F353497CB /* Transcription */,
+			);
+			path = "Selfnote";
+			sourceTree = "<group>";
+		};
+		D904E2147A3D7DC431D82F25 /* SelfnoteTests */ = {
+			isa = "PBXGroup";
+			children = (
+				8E49F4E835F6E30F5585F40C /* CaptureFilesTests.swift */,
+				766B3D10727F66F3C31F6E36 /* NoteTests.swift */,
+			);
+			path = "SelfnoteTests";
+			sourceTree = "<group>";
+		};
+		6DA9239AF21705842162CE1A /* SelfnoteUITests */ = {
+			isa = "PBXGroup";
+			children = (
+				322CBDABDE10083427C4E9FB /* RecorderEntryTests.swift */,
+			);
+			path = "SelfnoteUITests";
+			sourceTree = "<group>";
+		};
+		2269D5D3AFDCA9F178414BE6 /* SelfnoteWidgets */ = {
+			isa = "PBXGroup";
+			children = (
+				133E6B6F39FCCB87BB240DAF /* SelfnoteWidgets.swift */,
+			);
+			path = "SelfnoteWidgets";
+			sourceTree = "<group>";
+		};
+		C861A6358212F1F9F496E7E0 /* Shared */ = {
+			isa = "PBXGroup";
+			children = (
+				6B5C35AB026D49B06A3B755A /* RecordingAttributes.swift */,
+				CC6C903C33E0B02E54040A6E /* RecordingIntents.swift */,
+			);
+			path = "Shared";
+			sourceTree = "<group>";
+		};
+		6784AF01E69A7FE2C73D122B /* Products */ = {
+			isa = "PBXGroup";
+			children = (
+				8DCCC32F0172F901F151BFB5 /* Selfnote.app */,
+				B72895A989C83F8D0F2E7DE8 /* SelfnoteWidgets.appex */,
+				789CA4D0334DF8F01A6A4447 /* SelfnoteTests.xctest */,
+				A87F137CB425E5B7C25AAFDD /* SelfnoteUITests.xctest */,
+			);
+			name = "Products";
+			sourceTree = "<group>";
+		};
+		FFC338EAA5ED2BA65AC7EAB9 /* Selfnote */ = {
+			isa = "PBXGroup";
+			children = (
+				49AA05FE22321282D05DC19D /* Config */,
+				F8B2A5D8136830BBC45635C8 /* Selfnote */,
+				D904E2147A3D7DC431D82F25 /* SelfnoteTests */,
+				6DA9239AF21705842162CE1A /* SelfnoteUITests */,
+				2269D5D3AFDCA9F178414BE6 /* SelfnoteWidgets */,
+				C861A6358212F1F9F496E7E0 /* Shared */,
+				6784AF01E69A7FE2C73D122B /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		1E35D37F56FC96A00D4C4845 /* Selfnote */ = {
+			isa = "PBXNativeTarget";
+			buildConfigurationList = B7D090D36868A6715E5D0C19 /* Selfnote configurations */;
+			buildPhases = (
+				EB16A9321337E25FB01C338A /* Sources */,
+				E013219202CF50CA90C3D7D2 /* Frameworks */,
+				5D6BED9DEB0F5CF046D86F22 /* Resources */,
+				CFEF8212CFBBE1EBEDAA7EFD /* Embed App Extensions */,
+			);
+			buildRules = ();
+			dependencies = (
+				6A71EC18CB195DCD04CC10F7 /* SelfnoteWidgets */,
+			);
+			name = "Selfnote";
+			productName = "Selfnote";
+			productReference = 8DCCC32F0172F901F151BFB5 /* Selfnote.app */;
+			productType = "com.apple.product-type.application";
+		};
+		864C732BD55688045114D69C /* SelfnoteWidgets */ = {
+			isa = "PBXNativeTarget";
+			buildConfigurationList = 553F29E307A3F3F52F5A447A /* SelfnoteWidgets configurations */;
+			buildPhases = (
+				191E9A7C11716628B2BD4016 /* Sources */,
+				0DB204BF9065E24654E860A5 /* Frameworks */,
+				F6ED6F0E37E3C451E9A16E12 /* Resources */,
+			);
+			buildRules = ();
+			dependencies = ();
+			name = "SelfnoteWidgets";
+			productName = "SelfnoteWidgets";
+			productReference = B72895A989C83F8D0F2E7DE8 /* SelfnoteWidgets.appex */;
+			productType = "com.apple.product-type.app-extension";
+		};
+		74A362E5AE15ACCC11407F70 /* SelfnoteTests */ = {
+			isa = "PBXNativeTarget";
+			buildConfigurationList = F069ADFECD8DB6C7554B636A /* SelfnoteTests configurations */;
+			buildPhases = (
+				A37CD4A7EDD0F3BF13E5C8B4 /* Sources */,
+				A02C741BFBEFFEEA5ED083E7 /* Frameworks */,
+				B2E532EA686E1A8D2FDB3E4B /* Resources */,
+			);
+			buildRules = ();
+			dependencies = (
+				6FFCFD14C84CF4D9BF016B20 /* Selfnote */,
+			);
+			name = "SelfnoteTests";
+			productName = "SelfnoteTests";
+			productReference = 789CA4D0334DF8F01A6A4447 /* SelfnoteTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		601F9BBB9D3A2B16A1596E0A /* SelfnoteUITests */ = {
+			isa = "PBXNativeTarget";
+			buildConfigurationList = 4A47399CB779229306E4671B /* SelfnoteUITests configurations */;
+			buildPhases = (
+				AA7007A9A43856D98464D14D /* Sources */,
+				FDBA6E1ABBE916998958771E /* Frameworks */,
+				1158C6A39D0BD928508D0A51 /* Resources */,
+			);
+			buildRules = ();
+			dependencies = (
+				A3E302F1EFB6AD72A493A735 /* Selfnote */,
+			);
+			name = "SelfnoteUITests";
+			productName = "SelfnoteUITests";
+			productReference = A87F137CB425E5B7C25AAFDD /* SelfnoteUITests.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		77F6421905A7052A93C9DF08 /* Project object */ = {
+			isa = "PBXProject";
+			attributes = {
+				BuildIndependentTargetsInParallel = "YES";
+				LastSwiftUpdateCheck = "2600";
+				LastUpgradeCheck = "2600";
+				TargetAttributes = {
+					1E35D37F56FC96A00D4C4845 = {
+						CreatedOnToolsVersion = "26.0";
+					};
+					864C732BD55688045114D69C = {
+						CreatedOnToolsVersion = "26.0";
+					};
+					74A362E5AE15ACCC11407F70 = {
+						CreatedOnToolsVersion = "26.0";
+						TestTargetID = 1E35D37F56FC96A00D4C4845 /* Selfnote */;
+					};
+					601F9BBB9D3A2B16A1596E0A = {
+						CreatedOnToolsVersion = "26.0";
+						TestTargetID = 1E35D37F56FC96A00D4C4845 /* Selfnote */;
+					};
+				};
+			};
+			buildConfigurationList = EB8E19EBFA448B2E524E6705 /* Project configurations */;
+			compatibilityVersion = "Xcode 14.0";
+			developmentRegion = "en";
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				"en",
+				"Base",
+			);
+			mainGroup = FFC338EAA5ED2BA65AC7EAB9 /* Selfnote */;
+			productRefGroup = 6784AF01E69A7FE2C73D122B /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				1E35D37F56FC96A00D4C4845 /* Selfnote */,
+				864C732BD55688045114D69C /* SelfnoteWidgets */,
+				74A362E5AE15ACCC11407F70 /* SelfnoteTests */,
+				601F9BBB9D3A2B16A1596E0A /* SelfnoteUITests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		5D6BED9DEB0F5CF046D86F22 /* Resources */ = {
+			isa = "PBXResourcesBuildPhase";
+			buildActionMask = 2147483647;
+			files = (
+				8E55842F845148EF95DD922B /* Assets.xcassets in Resources */,
+				D7BE7D58D78E6A9F0B571D84 /* InstrumentSans.ttf in Resources */,
+				7EB01C3650182B4C84C4490A /* OFL.txt in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		F6ED6F0E37E3C451E9A16E12 /* Resources */ = {
+			isa = "PBXResourcesBuildPhase";
+			buildActionMask = 2147483647;
+			files = ();
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		B2E532EA686E1A8D2FDB3E4B /* Resources */ = {
+			isa = "PBXResourcesBuildPhase";
+			buildActionMask = 2147483647;
+			files = ();
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		1158C6A39D0BD928508D0A51 /* Resources */ = {
+			isa = "PBXResourcesBuildPhase";
+			buildActionMask = 2147483647;
+			files = ();
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		EB16A9321337E25FB01C338A /* Sources */ = {
+			isa = "PBXSourcesBuildPhase";
+			buildActionMask = 2147483647;
+			files = (
+				BA6C860B11F36429847AD738 /* RecorderSetupView.swift in Sources */,
+				562753F21C54A98AC16C09AD /* RecordingBar.swift in Sources */,
+				99BCFCA50D09C35D1F83999B /* SelfnoteApp.swift in Sources */,
+				36F4BA97A0D00955119D90E5 /* CaptureController.swift in Sources */,
+				923114749E163743AEEA8F22 /* CaptureFiles.swift in Sources */,
+				FA51DEC618A220B70878A463 /* NoteDetailView.swift in Sources */,
+				4D3D614A98367303F2485838 /* NoteFormatter.swift in Sources */,
+				934E4419E55CED5359CAF5FD /* NoteStore.swift in Sources */,
+				63CC0B4C448C6192E8E1F0A6 /* NotesHomeView.swift in Sources */,
+				61BA36EF0A95F501285A4F0F /* VoiceNote.swift in Sources */,
+				8AA2FB5BFC035D195B1B447C /* LocalTranscriber.swift in Sources */,
+				7B16A91A8266170F3C259710 /* RecordingAttributes.swift in Sources */,
+				9E02DE1C617A5068BE2F0D1C /* RecordingIntents.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		191E9A7C11716628B2BD4016 /* Sources */ = {
+			isa = "PBXSourcesBuildPhase";
+			buildActionMask = 2147483647;
+			files = (
+				80DB750668DA90F4D930E7CB /* SelfnoteWidgets.swift in Sources */,
+				30B586AEF0950FBDBEA85A46 /* RecordingAttributes.swift in Sources */,
+				D9494B2F7195F5DE339D2118 /* RecordingIntents.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		A37CD4A7EDD0F3BF13E5C8B4 /* Sources */ = {
+			isa = "PBXSourcesBuildPhase";
+			buildActionMask = 2147483647;
+			files = (
+				791A1952A7B0BE3D6E7A0076 /* CaptureFilesTests.swift in Sources */,
+				2D01F851C890B665CF9C26D2 /* NoteTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		AA7007A9A43856D98464D14D /* Sources */ = {
+			isa = "PBXSourcesBuildPhase";
+			buildActionMask = 2147483647;
+			files = (
+				070358CD20C822D5C3C9C6D9 /* RecorderEntryTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		6A71EC18CB195DCD04CC10F7 /* SelfnoteWidgets */ = {
+			isa = "PBXTargetDependency";
+			target = 864C732BD55688045114D69C /* SelfnoteWidgets */;
+			targetProxy = 415924E7C13CB0D851F1EC8C /* SelfnoteWidgets */;
+		};
+		6FFCFD14C84CF4D9BF016B20 /* Selfnote */ = {
+			isa = "PBXTargetDependency";
+			target = 1E35D37F56FC96A00D4C4845 /* Selfnote */;
+			targetProxy = F0AB5BD70B3F4EC066C33251 /* Selfnote */;
+		};
+		A3E302F1EFB6AD72A493A735 /* Selfnote */ = {
+			isa = "PBXTargetDependency";
+			target = 1E35D37F56FC96A00D4C4845 /* Selfnote */;
+			targetProxy = FC3FEAB2A8C17F60A8AB46D1 /* Selfnote */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin XCBuildConfiguration section */
+		05A716E558AEEA3F2749DF91 /* Debug */ = {
+			isa = "XCBuildConfiguration";
+			baseConfigurationReference = ACDD896FA34AD5E4A4FAA4E7 /* Signing.xcconfig */;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = "NO";
+				CLANG_ENABLE_MODULES = "YES";
+				CLANG_ENABLE_OBJC_ARC = "YES";
+				CODE_SIGN_STYLE = "Automatic";
+				CURRENT_PROJECT_VERSION = "1";
+				MARKETING_VERSION = "0.1.0";
+				ENABLE_USER_SCRIPT_SANDBOXING = "YES";
+				IPHONEOS_DEPLOYMENT_TARGET = "26.0";
+				SDKROOT = "iphoneos";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = "NO";
+				TARGETED_DEVICE_FAMILY = "1";
+				SWIFT_VERSION = "5.0";
+				ONLY_ACTIVE_ARCH = "YES";
+				ENABLE_TESTABILITY = "YES";
+				DEBUG_INFORMATION_FORMAT = "dwarf";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG $(inherited)";
+			};
+			name = "Debug";
+		};
+		1D16F4BF42CA03C5B4920C0B /* Release */ = {
+			isa = "XCBuildConfiguration";
+			baseConfigurationReference = ACDD896FA34AD5E4A4FAA4E7 /* Signing.xcconfig */;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = "NO";
+				CLANG_ENABLE_MODULES = "YES";
+				CLANG_ENABLE_OBJC_ARC = "YES";
+				CODE_SIGN_STYLE = "Automatic";
+				CURRENT_PROJECT_VERSION = "1";
+				MARKETING_VERSION = "0.1.0";
+				ENABLE_USER_SCRIPT_SANDBOXING = "YES";
+				IPHONEOS_DEPLOYMENT_TARGET = "26.0";
+				SDKROOT = "iphoneos";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = "NO";
+				TARGETED_DEVICE_FAMILY = "1";
+				SWIFT_VERSION = "5.0";
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				SWIFT_COMPILATION_MODE = "wholemodule";
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				VALIDATE_PRODUCT = "YES";
+			};
+			name = "Release";
+		};
+		0618513CA946A3CC69BA8358 /* Debug */ = {
+			isa = "XCBuildConfiguration";
+			buildSettings = {
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				GENERATE_INFOPLIST_FILE = "YES";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "$(SELFNOTE_BUNDLE_ID)";
+				INFOPLIST_FILE = "Config/Selfnote-Info.plist";
+				ASSETCATALOG_COMPILER_APPICON_NAME = "AppIcon";
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = "AccentColor";
+				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = "YES";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+			};
+			name = "Debug";
+		};
+		00E236A758DE098B0EDC0D21 /* Release */ = {
+			isa = "XCBuildConfiguration";
+			buildSettings = {
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				GENERATE_INFOPLIST_FILE = "YES";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "$(SELFNOTE_BUNDLE_ID)";
+				INFOPLIST_FILE = "Config/Selfnote-Info.plist";
+				ASSETCATALOG_COMPILER_APPICON_NAME = "AppIcon";
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = "AccentColor";
+				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = "YES";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+			};
+			name = "Release";
+		};
+		8BCDA36597A12DFD5505FF38 /* Debug */ = {
+			isa = "XCBuildConfiguration";
+			buildSettings = {
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				GENERATE_INFOPLIST_FILE = "YES";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "$(SELFNOTE_BUNDLE_ID).widgets";
+				SKIP_INSTALL = "YES";
+				APPLICATION_EXTENSION_API_ONLY = "YES";
+				INFOPLIST_FILE = "Config/Widgets-Info.plist";
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) SELFNOTE_WIDGET";
+			};
+			name = "Debug";
+		};
+		5BEEC7DB46E3B5763CA4554D /* Release */ = {
+			isa = "XCBuildConfiguration";
+			buildSettings = {
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				GENERATE_INFOPLIST_FILE = "YES";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "$(SELFNOTE_BUNDLE_ID).widgets";
+				SKIP_INSTALL = "YES";
+				APPLICATION_EXTENSION_API_ONLY = "YES";
+				INFOPLIST_FILE = "Config/Widgets-Info.plist";
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) SELFNOTE_WIDGET";
+			};
+			name = "Release";
+		};
+		04E54BA1B197EA8B58D057FB /* Debug */ = {
+			isa = "XCBuildConfiguration";
+			buildSettings = {
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				GENERATE_INFOPLIST_FILE = "YES";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "$(SELFNOTE_BUNDLE_ID).selfnotetests";
+				SKIP_INSTALL = "YES";
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Selfnote.app/Selfnote";
+			};
+			name = "Debug";
+		};
+		A5A28D46BE58653AA631859E /* Release */ = {
+			isa = "XCBuildConfiguration";
+			buildSettings = {
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				GENERATE_INFOPLIST_FILE = "YES";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "$(SELFNOTE_BUNDLE_ID).selfnotetests";
+				SKIP_INSTALL = "YES";
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Selfnote.app/Selfnote";
+			};
+			name = "Release";
+		};
+		27E9E4AC8BBD98E655403AD9 /* Debug */ = {
+			isa = "XCBuildConfiguration";
+			buildSettings = {
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				GENERATE_INFOPLIST_FILE = "YES";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "$(SELFNOTE_BUNDLE_ID).selfnoteuitests";
+				SKIP_INSTALL = "YES";
+				TEST_TARGET_NAME = "Selfnote";
+			};
+			name = "Debug";
+		};
+		AA7BA0E474C83A266D01FEBF /* Release */ = {
+			isa = "XCBuildConfiguration";
+			buildSettings = {
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				GENERATE_INFOPLIST_FILE = "YES";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "$(SELFNOTE_BUNDLE_ID).selfnoteuitests";
+				SKIP_INSTALL = "YES";
+				TEST_TARGET_NAME = "Selfnote";
+			};
+			name = "Release";
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		EB8E19EBFA448B2E524E6705 /* Project configurations */ = {
+			isa = "XCConfigurationList";
+			buildConfigurations = (
+				05A716E558AEEA3F2749DF91 /* Debug */,
+				1D16F4BF42CA03C5B4920C0B /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = "Release";
+		};
+		B7D090D36868A6715E5D0C19 /* Selfnote configurations */ = {
+			isa = "XCConfigurationList";
+			buildConfigurations = (
+				0618513CA946A3CC69BA8358 /* Debug */,
+				00E236A758DE098B0EDC0D21 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = "Release";
+		};
+		553F29E307A3F3F52F5A447A /* SelfnoteWidgets configurations */ = {
+			isa = "XCConfigurationList";
+			buildConfigurations = (
+				8BCDA36597A12DFD5505FF38 /* Debug */,
+				5BEEC7DB46E3B5763CA4554D /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = "Release";
+		};
+		F069ADFECD8DB6C7554B636A /* SelfnoteTests configurations */ = {
+			isa = "XCConfigurationList";
+			buildConfigurations = (
+				04E54BA1B197EA8B58D057FB /* Debug */,
+				A5A28D46BE58653AA631859E /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = "Release";
+		};
+		4A47399CB779229306E4671B /* SelfnoteUITests configurations */ = {
+			isa = "XCConfigurationList";
+			buildConfigurations = (
+				27E9E4AC8BBD98E655403AD9 /* Debug */,
+				AA7BA0E474C83A266D01FEBF /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = "Release";
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 77F6421905A7052A93C9DF08 /* Project object */;
+}

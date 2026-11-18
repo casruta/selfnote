@@ -1,0 +1,2 @@
+SELFNOTE_BUNDLE_ID = com.casruta.selfnote
+#include? "Signing.local.xcconfig"
